@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>After — For when it ends.</title>
+  <meta name="description" content="You just finished something great. After finds what comes next — matched on feeling, not genre." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F5F0EA;
+      --ink: #1A1A1A;
+      --ink-soft: #4A4540;
+      --ink-muted: #9A9088;
+      --blush: #C9837A;
+      --crimson: #7A1F1F;
+      --cobalt: #1C3A5C;
+      --rose: #C9837A;
+      --amber: #B8722A;
+      --orb-a: #E8B4B8;
+      --orb-b: #C9B8E8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 48px;
+      background: transparent;
+      transition: background 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(245, 240, 234, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      padding: 10px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-cta:hover { opacity: 0.8; transform: translateY(-1px); }
+
+    .nav-cta svg { width: 14px; height: 14px; fill: var(--cream); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-orb {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, var(--orb-a) 0%, var(--orb-b) 50%, transparent 75%);
+      opacity: 0.45;
+      filter: blur(80px);
+      animation: breathe 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.45; }
+      50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.55; }
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--blush);
+    }
+
+    .hero-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 300;
+      color: var(--ink-soft);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.8s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      padding: 16px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 24px rgba(26, 26, 26, 0.15);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(26, 26, 26, 0.2);
+    }
+
+    .btn-primary svg { width: 18px; height: 18px; fill: var(--cream); flex-shrink: 0; }
+
+    .hero-micro {
+      font-size: 12px;
+      color: var(--ink-muted);
+      letter-spacing: 0.03em;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 120px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    /* VOID SECTION */
+    .void-section {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 120px 48px;
+      text-align: center;
+    }
+
+    .void-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    .void-section h2 em { font-style: italic; color: var(--blush); }
+
+    .void-section p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      font-weight: 300;
+    }
+
+    /* STEPS */
+    .steps-section {
+      padding: 120px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .steps-header {
+      margin-bottom: 72px;
+    }
+
+    .steps-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 40px;
+      border-top: 1px solid rgba(26,26,26,0.1);
+    }
+
+    .step-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--blush);
+      letter-spacing: 0.08em;
+    }
+
+    .step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .step p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      font-weight: 300;
+    }
+
+    /* ORB SECTION */
+    .orb-section {
+      padding: 120px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .orb-section-header {
+      margin-bottom: 72px;
+    }
+
+    .orb-section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .orb-section-header p {
+      font-size: 16px;
+      color: var(--ink-muted);
+      font-weight: 300;
+    }
+
+    .orb-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .orb-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .orb-sphere {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .orb-card:hover .orb-sphere { transform: scale(1.08); }
+
+    .orb-sphere.crimson {
+      background: radial-gradient(circle at 35% 35%, #C23030, #7A1F1F);
+      box-shadow: 0 12px 40px rgba(122, 31, 31, 0.35);
+      filter: blur(1px);
+    }
+
+    .orb-sphere.cobalt {
+      background: radial-gradient(circle at 35% 35%, #2A5A8C, #1C3A5C);
+      box-shadow: 0 12px 40px rgba(28, 58, 92, 0.35);
+      filter: blur(1px);
+    }
+
+    .orb-sphere.rose {
+      background: radial-gradient(circle at 35% 35%, #D9938A, #B86A60);
+      box-shadow: 0 12px 40px rgba(184, 106, 96, 0.35);
+      filter: blur(1px);
+    }
+
+    .orb-sphere.amber {
+      background: radial-gradient(circle at 35% 35%, #D4882E, #A86020);
+      box-shadow: 0 12px 40px rgba(168, 96, 32, 0.35);
+      filter: blur(1px);
+    }
+
+    .orb-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .orb-genre {
+      font-size: 12px;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .orb-example {
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* QUOTE */
+    .quote-section {
+      padding: 140px 48px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      line-height: 0.5;
+      color: var(--blush);
+      opacity: 0.4;
+      margin-bottom: 32px;
+      display: block;
+    }
+
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.3;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
+
+    .quote-attr {
+      font-size: 13px;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      padding: 140px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-orb {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, var(--orb-a) 0%, var(--orb-b) 50%, transparent 75%);
+      opacity: 0.3;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .final-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .final-cta p {
+      font-size: 17px;
+      color: var(--ink-muted);
+      margin-bottom: 48px;
+      font-weight: 300;
+      position: relative;
+    }
+
+    .final-cta .btn-primary { position: relative; }
+
+    .final-micro {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--ink-muted);
+      position: relative;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, rgba(26,26,26,0.15), transparent);
+      margin: 0 auto;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(26,26,26,0.08);
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--ink-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-orb { width: 400px; height: 400px; }
+      section, .void-section, .steps-section, .orb-section, .quote-section, .final-cta { padding: 80px 24px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 0; }
+      .orb-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">After</a>
+    <a href="#download" class="nav-cta">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on App Store
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-orb"></div>
+    <p class="hero-eyebrow">Post-Series Blues, solved.</p>
+    <h1 class="hero-headline">For when<br /><em>it ends.</em></h1>
+    <p class="hero-sub">You just finished something great. After finds what comes next — matched on feeling, not genre.</p>
+    <div class="hero-cta-group">
+      <a href="#download" class="btn-primary" id="download">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+      <span class="hero-micro">Free to try. One recommendation. Always the right one.</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- THE VOID -->
+  <div class="void-section reveal">
+    <span class="section-label">The problem</span>
+    <h2>The void is <em>real.</em></h2>
+    <p>Psychologists call it Post-Series Depression. The emotional emptiness after finishing something you were fully inside — four seasons of Succession, the entire run of The Wire. No app has ever been built for this exact moment. Until now.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <div class="steps-section reveal">
+    <div class="steps-header">
+      <span class="section-label">How it works</span>
+      <h2>Three seconds.<br />One answer.</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <span class="step-number">01</span>
+        <h3>Open After</h3>
+        <p>Type the name of what you just finished. That's the whole input.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">02</span>
+        <h3>The orb reads the room</h3>
+        <p>The background transforms. The AI finds the emotional match — not the genre match.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">03</span>
+        <h3>One recommendation</h3>
+        <p>Not a list. Not an algorithm. The one thing that fills the specific void you're in.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- THE ORB -->
+  <div class="orb-section reveal">
+    <div class="orb-section-header">
+      <span class="section-label">The mood orb</span>
+      <h2>It reads the mood.</h2>
+      <p>The background transforms with every recommendation. Color as feeling.</p>
+    </div>
+    <div class="orb-grid">
+      <div class="orb-card">
+        <div class="orb-sphere crimson"></div>
+        <div>
+          <p class="orb-label">Deep Crimson</p>
+          <p class="orb-genre">Thriller · Crime · Power</p>
+          <p class="orb-example">Succession → Industry</p>
+        </div>
+      </div>
+      <div class="orb-card">
+        <div class="orb-sphere cobalt"></div>
+        <div>
+          <p class="orb-label">Cold Cobalt</p>
+          <p class="orb-genre">Sci-fi · Dystopia</p>
+          <p class="orb-example">Severance → Dark</p>
+        </div>
+      </div>
+      <div class="orb-card">
+        <div class="orb-sphere rose"></div>
+        <div>
+          <p class="orb-label">Dusty Rose</p>
+          <p class="orb-genre">Romance · Intimacy</p>
+          <p class="orb-example">Fleabag → Catastrophe</p>
+        </div>
+      </div>
+      <div class="orb-card">
+        <div class="orb-sphere amber"></div>
+        <div>
+          <p class="orb-label">Warm Amber</p>
+          <p class="orb-genre">Comedy · Warmth</p>
+          <p class="orb-example">The Bear → Whiplash</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- QUOTE -->
+  <div class="quote-section reveal">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">It felt like it actually understood what I needed.</p>
+    <p class="quote-attr">— Early user</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta reveal">
+    <div class="final-orb"></div>
+    <h2>What did you<br />just finish?</h2>
+    <p>After is waiting.</p>
+    <a href="https://apps.apple.com/app/after" class="btn-primary">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on the App Store
+    </a>
+    <p class="final-micro">Available on iOS. Free to start.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-brand">After © 2026</span>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="mailto:hello@tryafter.app">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
