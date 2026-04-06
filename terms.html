@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms and Conditions — After</title>
+  <meta name="description" content="Terms and Conditions for After — the app for what to watch next." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F5F0EA;
+      --ink: #1A1A1A;
+      --ink-soft: #4A4540;
+      --ink-muted: #9A9088;
+      --blush: #C9837A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 48px;
+      background: rgba(245, 240, 234, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s ease;
+    }
+
+    .nav-back:hover { color: var(--ink); }
+
+    /* CONTENT */
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 140px 48px 120px;
+    }
+
+    .page-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .last-updated {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin-bottom: 72px;
+      letter-spacing: 0.02em;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-top: 56px;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin: 0 0 16px 20px;
+      color: var(--ink-soft);
+    }
+
+    ul li {
+      font-size: 16px;
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(26,26,26,0.3);
+      transition: text-decoration-color 0.2s ease;
+    }
+
+    a:hover { text-decoration-color: var(--ink); }
+
+    .section-rule {
+      border: none;
+      border-top: 1px solid rgba(26,26,26,0.08);
+      margin: 48px 0;
+    }
+
+    .contact-block {
+      border: 1px solid rgba(26,26,26,0.1);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 16px;
+    }
+
+    .contact-block p {
+      margin-bottom: 4px;
+    }
+
+    .contact-block p:last-child { margin-bottom: 0; }
+
+    .contact-block .contact-link {
+      margin-top: 16px;
+      display: block;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(26,26,26,0.08);
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--ink-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .content { padding: 100px 24px 80px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">After</a>
+    <a href="/" class="nav-back">← Back</a>
+  </nav>
+
+  <div class="content">
+
+    <span class="page-label">Legal</span>
+    <h1>Terms and Conditions</h1>
+    <p class="last-updated">Effective date: April 6, 2026</p>
+
+    <p>Please read these Terms carefully before using After. By downloading or using the app, you agree to be bound by these terms. If you do not agree, do not use After.</p>
+
+    <hr class="section-rule">
+
+    <!-- 1 -->
+    <h2>1. About After</h2>
+    <p>After is a mobile application that provides a single AI-powered TV show or film recommendation based on content you have recently finished watching. After is developed and operated by Hichem Houhou, based in Montreal, Quebec, Canada.</p>
+    <p>After is available on iOS and is distributed through the Apple App Store. These Terms govern your use of the app regardless of how you access it.</p>
+
+    <hr class="section-rule">
+
+    <!-- 2 -->
+    <h2>2. Eligibility</h2>
+    <p>You must be at least 13 years of age to use After. By using the app, you confirm that you meet this requirement. If you are under 18, you represent that a parent or legal guardian has reviewed and agreed to these Terms on your behalf.</p>
+
+    <hr class="section-rule">
+
+    <!-- 3 -->
+    <h2>3. Subscriptions and Billing</h2>
+
+    <h3>Subscription Plans</h3>
+    <p>After offers the following auto-renewing subscription plans:</p>
+    <ul>
+      <li><strong>Monthly</strong> — billed monthly at the stated price</li>
+      <li><strong>Annual</strong> — billed once per year at the stated price</li>
+    </ul>
+    <p>Prices are displayed in your local currency at the time of purchase. All billing is processed through Apple and is subject to Apple's payment terms.</p>
+
+    <h3>Free Trial</h3>
+    <p>After offers a 14-day free trial for new subscribers. The trial begins on the date you initiate it. If you do not cancel before the trial period ends, you will be automatically charged for the subscription plan you selected. You will not receive a separate notice before the trial converts to a paid subscription.</p>
+
+    <h3>Auto-Renewal</h3>
+    <p>Subscriptions automatically renew at the end of each billing period unless cancelled at least 24 hours before the renewal date. Your Apple ID account will be charged within 24 hours of the renewal date. You can manage and cancel your subscription at any time through your Apple ID account settings.</p>
+
+    <h3>Refunds</h3>
+    <p>All purchases are processed by Apple. Refund requests must be submitted directly to Apple through their standard refund process. After has no ability to issue refunds independently. Apple's refund policy applies to all transactions.</p>
+
+    <h3>Price Changes</h3>
+    <p>We reserve the right to change subscription pricing at any time. You will be notified of any price changes in advance and will have the option to cancel before the new price takes effect.</p>
+
+    <hr class="section-rule">
+
+    <!-- 4 -->
+    <h2>4. AI-Powered Recommendations</h2>
+    <p>After uses OpenAI's API to generate recommendations. By using After, you acknowledge and agree to the following:</p>
+    <ul>
+      <li>Recommendations are generated by an AI system and are not guaranteed to be accurate, complete, or suitable for your specific preferences.</li>
+      <li>After does not guarantee that recommended content is available on any particular streaming platform or in your region.</li>
+      <li>Recommendations are for informational and entertainment purposes only.</li>
+      <li>The AI may occasionally recommend content with inaccurate metadata, including incorrect release years or other details. We work to minimise this but cannot guarantee perfect accuracy.</li>
+      <li>Your use of AI-generated recommendations is entirely at your own discretion.</li>
+    </ul>
+
+    <hr class="section-rule">
+
+    <!-- 5 -->
+    <h2>5. Your Data and Privacy</h2>
+
+    <h3>What We Store</h3>
+    <p>After is designed with privacy as a core principle. We collect and store no personal information. Specifically:</p>
+    <ul>
+      <li>No account creation is required</li>
+      <li>No email address or personal identifiers are collected</li>
+      <li>No analytics or tracking tools are used</li>
+      <li>No data is transmitted to our servers</li>
+    </ul>
+
+    <h3>Local Storage</h3>
+    <p>All data generated by your use of After — including your watch history, saved recommendations, and taste preferences — is stored exclusively on your device. This data does not leave your device and is not accessible to us.</p>
+
+    <h3>Deletion</h3>
+    <p>You can delete all locally stored data at any time by uninstalling the app. Because we do not retain any data on our servers, uninstalling the app permanently removes all associated data.</p>
+
+    <h3>Third-Party Services</h3>
+    <p>After integrates with the following third-party services, each subject to their own privacy policies:</p>
+    <ul>
+      <li><strong>Apple App Store</strong> — for payment processing and app distribution</li>
+      <li><strong>RevenueCat</strong> — for subscription management (no personal data is shared beyond a randomly generated anonymous ID)</li>
+      <li><strong>OpenAI</strong> — for AI recommendation processing (your show or film input is sent to OpenAI's API to generate a recommendation; <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI's privacy policy</a> applies)</li>
+    </ul>
+
+    <hr class="section-rule">
+
+    <!-- 6 -->
+    <h2>6. Acceptable Use</h2>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Use After for any unlawful purpose or in violation of any applicable laws or regulations</li>
+      <li>Attempt to reverse engineer, decompile, or extract the source code of After</li>
+      <li>Use automated tools, bots, or scripts to interact with After</li>
+      <li>Attempt to circumvent or bypass any subscription verification or paywall mechanism</li>
+      <li>Interfere with or disrupt the integrity or performance of After or its connected services</li>
+    </ul>
+
+    <hr class="section-rule">
+
+    <!-- 7 -->
+    <h2>7. Intellectual Property</h2>
+    <p>All content, design, trademarks, branding, and technology associated with After are the exclusive property of Hichem Houhou or their respective owners. Nothing in these Terms grants you any rights to use After's name, logo, or branding in any manner.</p>
+    <p>The AI-generated recommendations produced by After are provided for your personal, non-commercial use only. You may not reproduce, distribute, or commercialise these recommendations without prior written permission.</p>
+
+    <hr class="section-rule">
+
+    <!-- 8 -->
+    <h2>8. Disclaimer of Warranties</h2>
+    <p>After is provided on an "as is" and "as available" basis without warranties of any kind, whether express or implied. To the fullest extent permitted by applicable law, we disclaim all warranties, including but not limited to:</p>
+    <ul>
+      <li>Merchantability and fitness for a particular purpose</li>
+      <li>Uninterrupted or error-free operation</li>
+      <li>Accuracy or reliability of AI-generated recommendations</li>
+      <li>Availability of recommended content on any streaming platform</li>
+    </ul>
+    <p>We do not warrant that After will meet your requirements or that any defects will be corrected.</p>
+
+    <hr class="section-rule">
+
+    <!-- 9 -->
+    <h2>9. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by applicable law, Hichem Houhou shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use After, even if we have been advised of the possibility of such damages.</p>
+    <p>Our total liability to you for any claims arising under these Terms shall not exceed the amount you paid for your subscription in the 12 months preceding the claim.</p>
+    <p>Some jurisdictions, including Quebec, Canada, do not allow the exclusion of certain warranties or limitations of liability. In such jurisdictions, our liability is limited to the greatest extent permitted by law.</p>
+
+    <hr class="section-rule">
+
+    <!-- 10 -->
+    <h2>10. Termination</h2>
+    <p>We reserve the right to suspend or terminate your access to After at any time, without notice, if we believe you have violated these Terms or applicable law.</p>
+    <p>You may terminate your use of After at any time by cancelling your subscription and uninstalling the app. Cancellation of a subscription does not entitle you to a refund for any unused portion of a billing period, except as required by applicable law.</p>
+
+    <hr class="section-rule">
+
+    <!-- 11 -->
+    <h2>11. Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. When we do, we will update the effective date at the top of this document. Continued use of After after any changes constitutes your acceptance of the revised Terms. If the changes are material, we will make reasonable efforts to notify you in advance.</p>
+
+    <hr class="section-rule">
+
+    <!-- 12 -->
+    <h2>12. Governing Law</h2>
+    <p>These Terms are governed by and construed in accordance with the laws of the Province of Quebec and the federal laws of Canada applicable therein, without regard to conflict of law principles.</p>
+    <p>Any disputes arising from these Terms or your use of After shall be resolved in the courts of competent jurisdiction located in Montreal, Quebec, Canada.</p>
+
+    <hr class="section-rule">
+
+    <!-- 13 -->
+    <h2>13. Apple-Specific Terms</h2>
+    <p>After is distributed through the Apple App Store. The following terms apply with respect to Apple:</p>
+    <ul>
+      <li>These Terms are entered into between you and Hichem Houhou, not Apple. Apple is not responsible for After or its content.</li>
+      <li>Apple has no obligation to provide any maintenance or support services for After.</li>
+      <li>In the event of any failure of After to conform to any applicable warranty, you may notify Apple and Apple will refund the purchase price (if any). To the maximum extent permitted by law, Apple has no other warranty obligation with respect to After.</li>
+      <li>Apple is not responsible for addressing any claims by you relating to After, including product liability claims, consumer protection claims, or intellectual property infringement claims.</li>
+      <li>Apple and its subsidiaries are third-party beneficiaries of these Terms and, upon your acceptance, Apple will have the right to enforce these Terms against you as a third-party beneficiary.</li>
+    </ul>
+
+    <hr class="section-rule">
+
+    <!-- 14 -->
+    <h2>14. Contact</h2>
+    <p>If you have any questions about these Terms, please contact us at:</p>
+    <div class="contact-block">
+      <p><strong>After — Hichem Houhou</strong></p>
+      <p>Montreal, Quebec, Canada</p>
+      <a href="mailto:houhouhichem0@gmail.com" class="contact-link">houhouhichem0@gmail.com</a>
+      <a href="https://tryafter.app" class="contact-link">tryafter.app</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-brand">After © 2026</span>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:houhouhichem0@gmail.com">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>
