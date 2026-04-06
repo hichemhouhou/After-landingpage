@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — After</title>
+  <meta name="description" content="Get in touch with the After team." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F5F0EA;
+      --ink: #1A1A1A;
+      --ink-soft: #4A4540;
+      --ink-muted: #9A9088;
+      --blush: #C9837A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 48px;
+      background: rgba(245, 240, 234, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s ease;
+    }
+
+    .nav-back:hover { color: var(--ink); }
+
+    .content {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 140px 48px 120px;
+    }
+
+    .page-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--ink-muted);
+      font-weight: 300;
+      margin-bottom: 56px;
+    }
+
+    /* FORM */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(26,26,26,0.12);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: var(--ink-muted);
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(26,26,26,0.35);
+      background: rgba(255,255,255,0.85);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.6;
+    }
+
+    select {
+      cursor: pointer;
+      color: var(--ink-soft);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9088' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover { opacity: 0.82; }
+    .submit-btn:disabled { opacity: 0.45; cursor: default; }
+
+    /* SUCCESS STATE */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 64px 0;
+    }
+
+    .success-state .success-icon {
+      font-size: 40px;
+      margin-bottom: 24px;
+    }
+
+    .success-state h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .success-state p {
+      font-size: 15px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .error-msg {
+      font-size: 13px;
+      color: #a03030;
+      margin-top: 12px;
+      display: none;
+    }
+
+    footer {
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(26,26,26,0.08);
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      color: var(--ink-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .content { padding: 100px 24px 80px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">After</a>
+    <a href="/" class="nav-back">← Back</a>
+  </nav>
+
+  <div class="content">
+
+    <span class="page-label">Get in touch</span>
+    <h1>Contact</h1>
+    <p class="subtitle">Questions, feedback, or just want to say something. We read everything.</p>
+
+    <form id="contact-form">
+      <div class="form-group">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <select id="subject" name="subject">
+          <option value="General question">General question</option>
+          <option value="Subscription / billing">Subscription / billing</option>
+          <option value="App feedback">App feedback</option>
+          <option value="Bug report">Bug report</option>
+          <option value="Privacy / data">Privacy / data</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">Send message</button>
+      <p class="error-msg" id="error-msg">Something went wrong. Please try again or email us directly.</p>
+    </form>
+
+    <div class="success-state" id="success-state">
+      <div class="success-icon">✦</div>
+      <h2>Message sent.</h2>
+      <p>We'll get back to you as soon as we can.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-brand">After © 2026</span>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const btn = document.getElementById('submit-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const successState = document.getElementById('success-state');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      errorMsg.style.display = 'none';
+
+      const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value,
+      };
+
+      try {
+        const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+          form.style.display = 'none';
+          successState.style.display = 'block';
+        } else {
+          throw new Error();
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+        errorMsg.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>
