@@ -1,0 +1,829 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><style>html,body{margin:0}body{min-height:100vh}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style><title>Meurtre au Black Orchid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@400;600&family=Special+Elite&family=Kalam:wght@400;700&display=swap">
+<style>
+/* Concept : une fiche de speakeasy de 1926 — nuit aubergine, filets de laiton, documents papier glissés dans la poche. Thème unique, sombre, assumé. */
+:root {
+  --night: #140f17;
+  --night-2: #1d1622;
+  --night-3: #2a2030;
+  --rule: #4a3a4c;
+  --brass: #d2ad66;
+  --brass-soft: #9f8350;
+  --orchid: #c95e9b;
+  --ivory: #f0e7d8;
+  --ivory-dim: #b8acb4;
+  --paper: #ece0c4;
+  --paper-ink: #2b2118;
+  --paper-line: #c8b68f;
+  --telegram: #f2e3a2;
+  --newsprint: #e6dfcc;
+  --steno: #e3e6cf;
+  --alert: #e2735c;
+  --ok: #8fbf8a;
+  --f-display: "Limelight", "Didot", "Bodoni MT", Georgia, serif;
+  --f-body: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --f-label: "Josefin Sans", "Futura", "Century Gothic", system-ui, sans-serif;
+  --f-type: "Special Elite", "Courier New", Courier, monospace;
+  --f-hand: "Kalam", "Segoe Print", "Bradley Hand", cursive;
+  color-scheme: dark;
+}
+html { background: var(--night); }
+body {
+  background: var(--night);
+  color: var(--ivory);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+* { box-sizing: border-box; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 0 72px; }
+h1, h2, h3 { text-wrap: balance; font-weight: 400; margin: 0; }
+p { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.label {
+  font-family: var(--f-label); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--brass);
+}
+.muted { color: var(--ivory-dim); }
+strong { color: var(--ivory); font-weight: 700; }
+em { font-style: italic; }
+
+/* ---------- Ornements Art déco ---------- */
+.fan {
+  width: 120px; height: 60px; margin: 0 auto;
+  background: repeating-conic-gradient(from -90deg at 50% 100%, var(--brass) 0deg 2deg, transparent 2deg 12deg);
+  -webkit-mask: radial-gradient(circle at 50% 100%, #000 0 58px, transparent 59px);
+          mask: radial-gradient(circle at 50% 100%, #000 0 58px, transparent 59px);
+  opacity: .55;
+}
+.rule-deco { display: flex; align-items: center; gap: 10px; color: var(--brass-soft); }
+.rule-deco::before, .rule-deco::after { content: ""; flex: 1; height: 0; border-top: 3px double var(--brass-soft); }
+.rule-deco span { width: 9px; height: 9px; transform: rotate(45deg); border: 1px solid var(--brass); }
+.framed { position: relative; border: 1px solid var(--rule); background: var(--night-2); padding: 20px; }
+.framed::before, .framed::after {
+  content: ""; position: absolute; width: 14px; height: 14px; border-color: var(--brass); border-style: solid; pointer-events: none;
+}
+.framed::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.framed::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+/* ---------- Porte d'entrée ---------- */
+.door { min-height: 100%; display: grid; place-items: center; padding-block: 40px; }
+.door-inner { width: 100%; max-width: 440px; display: grid; gap: 22px; text-align: center; }
+.sign-small { font-family: var(--f-label); letter-spacing: .3em; text-transform: uppercase; font-size: 12px; color: var(--brass-soft); }
+.sign {
+  font-family: var(--f-display); font-size: clamp(44px, 13vw, 76px); line-height: .95; color: var(--brass);
+  letter-spacing: .02em; text-shadow: 0 0 24px rgba(210,173,102,.25);
+}
+.sign em { font-style: normal; color: var(--ivory); display: block; font-size: .42em; letter-spacing: .38em; margin-top: 10px; }
+.judas { border: 1px solid var(--rule); background: var(--night-2); padding: 22px 18px; display: grid; gap: 14px; }
+.judas p { font-style: italic; color: var(--ivory-dim); }
+.judas .voice { font-style: normal; font-size: 20px; color: var(--ivory); }
+.field { display: flex; gap: 8px; flex-wrap: wrap; }
+.field input {
+  flex: 1 1 180px; min-width: 0; background: var(--night); border: 1px solid var(--brass-soft); padding: 12px 14px;
+  font-family: var(--f-type); font-size: 18px; letter-spacing: .12em; text-transform: uppercase;
+}
+.btn {
+  background: var(--brass); color: var(--night); border: 0; padding: 12px 18px;
+  font-family: var(--f-label); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; font-size: 13px;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--brass); border: 1px solid var(--brass-soft); }
+.btn.small { padding: 8px 12px; font-size: 11px; }
+.btn.danger { background: var(--alert); }
+.msg { min-height: 1.4em; font-size: 14px; color: var(--alert); }
+.msg.ok { color: var(--ok); }
+
+/* ---------- En-tête de fiche ---------- */
+.top { display: grid; grid-template-columns: 112px 1fr; gap: 18px; align-items: end; padding-block: 28px 18px; }
+.portrait {
+  position: relative; width: 100%; max-width: 100%; aspect-ratio: 3 / 4; background: radial-gradient(circle at 50% 35%, var(--night-3), var(--night));
+  border: 1px solid var(--brass-soft); outline: 1px solid var(--brass-soft); outline-offset: 3px; overflow: hidden;
+  display: grid; place-items: center;
+}
+.portrait .mono { font-family: var(--f-display); color: var(--brass); font-size: 34px; letter-spacing: .04em; }
+.portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.top h1 { font-family: var(--f-display); font-size: clamp(28px, 7vw, 42px); line-height: 1.05; color: var(--ivory); }
+.top .role { margin-top: 6px; }
+.top .switch { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- Onglets ---------- */
+.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--night);
+  display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--rule);
+  margin-inline: -16px; padding-inline: 12px;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 0 0 auto; background: none; border: 0; padding: 14px 10px 12px; color: var(--ivory-dim);
+  font-family: var(--f-label); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; border-bottom: 2px solid transparent;
+  position: relative;
+}
+.tab[aria-selected="true"] { color: var(--brass); border-bottom-color: var(--brass); }
+.tab .dot { position: absolute; top: 9px; right: 2px; width: 6px; height: 6px; border-radius: 50%; background: var(--orchid); }
+.panel { display: grid; gap: 28px; padding-top: 26px; }
+.section { display: grid; gap: 14px; }
+.section h2 { font-family: var(--f-display); font-size: 24px; color: var(--brass); }
+.prose { display: grid; gap: 12px; max-width: 65ch; }
+.lead { font-size: 19px; font-style: italic; line-height: 1.5; }
+
+.list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.list li { display: grid; grid-template-columns: 16px 1fr; gap: 8px; }
+.list li::before { content: ""; width: 7px; height: 7px; margin-top: .62em; transform: rotate(45deg); border: 1px solid var(--brass); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.fact { border-top: 1px solid var(--rule); padding-top: 10px; display: grid; gap: 4px; }
+.fact p { font-size: 15px; }
+
+.secret-list { display: grid; gap: 8px; counter-reset: s; }
+.secret-list div { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 12px; background: var(--night-2); border: 1px solid var(--rule); }
+.secret-list div::before { content: counter(s, upper-roman); font-family: var(--f-display); color: var(--orchid); font-size: 20px; line-height: 1.2; }
+
+.timeline { display: grid; gap: 0; }
+.tl-row { display: grid; grid-template-columns: 74px 1fr; gap: 14px; padding-block: 12px; border-bottom: 1px dashed var(--rule); }
+.tl-row .t { font-family: var(--f-type); color: var(--brass); font-size: 14px; font-variant-numeric: tabular-nums; padding-top: 2px; }
+.callout { border: 1px solid var(--orchid); padding: 16px 18px; display: grid; gap: 10px; background: rgba(201,94,155,.07); }
+.callout .label { color: var(--orchid); }
+
+.rel { display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start; padding-block: 12px; border-bottom: 1px solid var(--rule); }
+.rel .portrait { outline-offset: 2px; }
+.rel .portrait .mono { font-size: 18px; }
+.rel h3 { font-family: var(--f-label); font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--brass); margin-bottom: 4px; }
+
+.obj { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: start; padding: 12px; border: 1px solid var(--rule); background: var(--night-2); }
+.obj input { width: 20px; height: 20px; accent-color: var(--brass); margin-top: 3px; }
+.obj .pts { font-family: var(--f-display); color: var(--brass); white-space: nowrap; }
+.obj.done p { color: var(--ivory-dim); text-decoration: line-through; text-decoration-color: var(--brass-soft); }
+.total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-top: 6px; }
+.total b { font-family: var(--f-display); font-size: 28px; color: var(--brass); font-weight: 400; }
+
+/* ---------- Actes ---------- */
+.act { display: grid; gap: 16px; }
+.act-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.act-num { font-family: var(--f-display); font-size: 44px; line-height: 1; color: var(--brass); }
+.act-title { font-family: var(--f-display); font-size: 24px; }
+.locked { display: grid; gap: 12px; }
+.locked p { color: var(--ivory-dim); font-style: italic; }
+.todo { display: grid; gap: 8px; }
+
+/* ---------- Documents ---------- */
+.doc { position: relative; display: grid; gap: 10px; padding: 18px 18px 16px; color: var(--paper-ink); }
+.doc .doc-title { font-family: var(--f-label); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; opacity: .75; }
+.doc .doc-body { white-space: normal; }
+.doc .doc-note { font-style: italic; font-size: 14px; border-top: 1px dashed currentColor; padding-top: 8px; opacity: .85; }
+.doc .doc-sign { text-align: right; font-style: italic; font-size: 14px; }
+.doc .show { justify-self: start; background: transparent; border: 1px solid currentColor; color: inherit; padding: 6px 12px; font-family: var(--f-label); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+.doc.notebook { background: var(--paper) repeating-linear-gradient(to bottom, transparent 0 27px, var(--paper-line) 27px 28px); font-family: var(--f-hand); font-size: 17px; line-height: 28px; padding-left: 34px; box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+.doc.notebook::before { content: ""; position: absolute; top: 0; bottom: 0; left: 22px; border-left: 1px solid rgba(178,52,52,.45); }
+.doc.notebook .doc-title { font-family: var(--f-label); line-height: 1.4; }
+.doc.telegram { background: var(--telegram); font-family: var(--f-type); text-transform: uppercase; letter-spacing: .03em; font-size: 15px; box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+.doc.telegram .doc-body { border-top: 3px double var(--paper-ink); padding-top: 10px; }
+.doc.clipping { background: var(--newsprint); font-family: var(--f-body); font-size: 15px; transform: rotate(-.6deg); box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+.doc.clipping .doc-body > :first-child { font-family: var(--f-display); font-size: 22px; line-height: 1.15; text-align: center; border-bottom: 1px solid var(--paper-ink); padding-bottom: 6px; display: block; }
+.doc.steno { background: var(--steno) repeating-linear-gradient(to bottom, transparent 0 25px, rgba(60,110,90,.25) 25px 26px); font-family: var(--f-type); font-size: 14px; line-height: 26px; box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+.doc.statement { background: var(--paper); font-family: var(--f-type); font-size: 15px; box-shadow: 0 6px 18px rgba(0,0,0,.4); }
+.doc.burnt { background: radial-gradient(ellipse at center, var(--paper) 45%, #b48f5a 72%, #3a2414 100%); font-family: var(--f-hand); font-size: 17px; padding: 26px 24px; clip-path: polygon(2% 6%, 12% 0, 30% 4%, 46% 0, 63% 5%, 80% 1%, 97% 7%, 100% 30%, 96% 52%, 100% 74%, 95% 97%, 74% 100%, 55% 95%, 34% 100%, 16% 96%, 0 100%, 4% 72%, 0 48%, 3% 26%); }
+.doc.object, .doc.memory, .doc.script { color: var(--ivory); background: var(--night-3); border: 1px solid var(--rule); }
+.doc.object .doc-title, .doc.memory .doc-title, .doc.script .doc-title { color: var(--brass); opacity: 1; }
+.doc.memory .doc-body { font-style: italic; }
+.doc.script .doc-body { font-size: 15px; }
+
+/* Plein écran « Montrer » */
+.overlay { position: fixed; inset: 0; z-index: 50; background: rgba(10,7,12,.94); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px)); overflow-y: auto; }
+.overlay .inner { width: 100%; max-width: 620px; display: grid; gap: 14px; }
+.overlay .doc { font-size: 1.12em; }
+.overlay .doc .show { display: none; }
+
+/* ---------- Enquête ---------- */
+textarea.notes { width: 100%; min-height: 180px; resize: vertical; background: var(--paper); color: var(--paper-ink); border: 0; padding: 14px; font-family: var(--f-hand); font-size: 17px; line-height: 1.5; }
+.grid-sus { display: grid; gap: 8px; }
+.sus { display: grid; grid-template-columns: 44px minmax(0,1fr); gap: 10px; align-items: center; padding: 8px; border: 1px solid var(--rule); background: var(--night-2); }
+.sus .portrait .mono { font-size: 15px; }
+.sus .name { font-family: var(--f-label); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.chip { border: 1px solid var(--rule); background: transparent; color: var(--ivory-dim); padding: 4px 9px; font-family: var(--f-label); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.chip[aria-pressed="true"] { background: var(--brass); border-color: var(--brass); color: var(--night); }
+.chip.clear[aria-pressed="true"] { background: var(--ok); border-color: var(--ok); }
+.sus.cleared .name { text-decoration: line-through; color: var(--ivory-dim); }
+.form { display: grid; gap: 12px; }
+.form label { display: grid; gap: 6px; }
+.form select, .form textarea { background: var(--night); border: 1px solid var(--brass-soft); padding: 10px 12px; width: 100%; }
+.accused { text-align: center; display: grid; gap: 10px; padding: 26px 18px; }
+.accused .who { font-family: var(--f-display); font-size: 32px; color: var(--brass); line-height: 1.1; }
+
+/* ---------- Le Club ---------- */
+.cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px 14px; }
+.cast-card { display: grid; gap: 8px; align-content: start; }
+.cast-card h3 { font-family: var(--f-label); font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--ivory); line-height: 1.3; }
+.cast-card p { font-size: 14px; color: var(--ivory-dim); }
+details.more { border-top: 1px solid var(--rule); padding-top: 10px; }
+details.more summary { cursor: pointer; font-family: var(--f-label); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+details.more[open] summary { margin-bottom: 12px; }
+.plan { overflow-x: auto; border: 1px solid var(--rule); background: var(--night-2); }
+.plan svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.victim { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: start; }
+.slang { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 18px; }
+.slang div { border-bottom: 1px dotted var(--rule); padding-bottom: 8px; }
+.slang b { font-family: var(--f-type); color: var(--brass); font-weight: 400; display: block; }
+
+/* ---------- Narrateur ---------- */
+.step { display: grid; gap: 14px; }
+.step-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.step-head h3 { font-family: var(--f-display); font-size: 24px; color: var(--ivory); }
+.read { border-left: 0; background: var(--night-3); padding: 20px; display: grid; gap: 12px; font-size: 18px; line-height: 1.65; }
+.read .label { color: var(--orchid); }
+.stage { display: grid; gap: 8px; font-size: 15px; }
+.pw { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border: 1px dashed var(--brass); padding: 14px 16px; }
+.pw b { font-family: var(--f-type); font-size: 26px; letter-spacing: .2em; color: var(--brass); font-weight: 400; }
+.timer { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.timer .clock { font-family: var(--f-display); font-size: 40px; color: var(--brass); font-variant-numeric: tabular-nums; min-width: 4ch; }
+.timer.over .clock { color: var(--alert); }
+.step.future { opacity: .55; }
+.dist { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 14px; align-items: center; padding-block: 12px; border-bottom: 1px solid var(--rule); }
+.dist .portrait .mono { font-size: 18px; }
+.dist .code { font-family: var(--f-type); color: var(--brass); letter-spacing: .14em; }
+.dist .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+.check { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; }
+.check input { width: 18px; height: 18px; accent-color: var(--brass); margin-top: 4px; }
+.check .when { font-family: var(--f-label); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--brass-soft); display: block; }
+.reveal-card { display: grid; gap: 14px; }
+.reveal-card .q { font-family: var(--f-label); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); font-size: 13px; }
+.reveal-card .a { font-family: var(--f-display); font-size: 30px; line-height: 1.1; }
+.reveal-card.big .a { font-size: clamp(34px, 9vw, 52px); color: var(--brass); }
+.proof { display: grid; gap: 4px; padding-block: 10px; border-top: 1px solid var(--rule); }
+.proof b { font-family: var(--f-label); letter-spacing: .12em; text-transform: uppercase; font-size: 12px; color: var(--orchid); font-weight: 600; }
+.ep { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding-block: 12px; border-bottom: 1px solid var(--rule); }
+.ep .portrait .mono { font-size: 18px; }
+.ep h3 { font-family: var(--f-label); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--brass); margin-bottom: 4px; }
+input.link { width: 100%; background: var(--night); border: 1px solid var(--brass-soft); padding: 10px 12px; font-family: var(--f-type); font-size: 14px; }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--brass); color: var(--night); padding: 10px 16px; font-family: var(--f-label); font-size: 13px; letter-spacing: .08em; z-index: 60; max-width: calc(100% - 32px); }
+
+@media (max-width: 480px) {
+  .top { grid-template-columns: 92px 1fr; gap: 14px; }
+  .victim { grid-template-columns: 90px 1fr; }
+  .read { font-size: 17px; padding: 16px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .panel { animation: rise .35s ease-out both; }
+  @keyframes rise { from { opacity: .4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}
+</style></head><body>
+
+<div id="app"></div>
+<script src="data-public.js"></script>
+<script src="data-sealed.js"></script>
+
+<script>
+const PUBLIC = window.BO_PUBLIC;
+const SEALED = window.BO_SEALED;
+
+/* ---------- Utilitaires ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('bo_' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('bo_' + k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem('bo_' + k); } catch (e) {} },
+};
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function md(s) {
+  return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+}
+function norm(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
+function hash(s) {
+  let h = 0x811c9dc5; const str = 'orchid|' + s;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h.toString(16).padStart(8, '0');
+}
+async function unseal(b64, key) {
+  const bin = atob(b64); const k = new TextEncoder().encode(key + '::black-orchid-1926');
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i) ^ k[i % k.length] ^ ((i * 31) & 255);
+  const stream = new Blob([out]).stream().pipeThrough(new DecompressionStream('gzip'));
+  return JSON.parse(await new Response(stream).text());
+}
+const castById = Object.fromEntries(PUBLIC.cast.map(c => [c.id, c]));
+function portrait(id, initials) {
+  const src = id === 'crane' ? 'portraits/crane.jpg' : 'portraits/' + id + '.jpg';
+  return '<div class="portrait"><span class="mono">' + esc(initials) + '</span><img data-portrait alt="" src="' + src + '"></div>';
+}
+function wirePortraits(root) {
+  $$('img[data-portrait]', root).forEach(img => {
+    if (img.dataset.wired) return; img.dataset.wired = '1';
+    const kill = () => img.remove();
+    if (img.complete && img.naturalWidth === 0) kill(); else img.addEventListener('error', kill);
+  });
+}
+function toast(t) {
+  const el = document.createElement('div'); el.className = 'toast'; el.textContent = t; document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2200);
+}
+function copy(text) {
+  const done = () => toast('Copié');
+  try {
+    navigator.clipboard.writeText(text).then(done, () => fallback());
+  } catch (e) { fallback(); }
+  function fallback() {
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { toast('Sélectionnez le texte et copiez-le'); }
+    ta.remove();
+  }
+}
+
+/* ---------- État ---------- */
+let me = null;       // fiche du joueur décodée
+let narr = null;     // données narrateur décodées
+let tab = 'role';
+
+async function login(raw, silent) {
+  const code = norm(raw);
+  if (!code) return false;
+  const h = hash(code);
+  try {
+    if (SEALED.narrator.h === h) { narr = await unseal(SEALED.narrator.b, code); me = null; store.set('code', code); tab = store.get('ntab', 'deroule'); render(); return true; }
+    const b = SEALED.players[h];
+    if (b) { me = await unseal(b, code); narr = null; store.set('code', code); tab = store.get('tab_' + me.id, 'role'); render(); return true; }
+  } catch (e) { console.error(e); }
+  return false;
+}
+function logout() { store.del('code'); me = null; narr = null; render(); }
+
+function actsOpen() { return store.get('acts', []); }
+function openAct(n, pw) {
+  if (hash(norm(pw)) !== SEALED.acts[n]) return false;
+  const a = actsOpen(); if (!a.includes(n)) a.push(n); store.set('acts', a); return true;
+}
+
+/* ---------- Rendu : porte ---------- */
+function renderDoor() {
+  $('#app').innerHTML = `
+    <div class="wrap door">
+      <div class="door-inner">
+        <div class="fan" aria-hidden="true"></div>
+        <div class="sign-small">52e Rue Ouest · New York · 1926</div>
+        <h1 class="sign">Black Orchid<em>Meurtre au speakeasy</em></h1>
+        <div class="rule-deco" aria-hidden="true"><span></span></div>
+        <form class="judas" id="doorForm" autocomplete="off">
+          <p>Vous frappez trois coups à la porte capitonnée, au fond de la chambre froide du fleuriste. Le judas s'ouvre.</p>
+          <p class="voice">« Le mot de passe ? »</p>
+          <div class="field">
+            <input id="codeInput" name="code" aria-label="Votre mot de passe personnel" placeholder="Mot de passe" autocapitalize="characters" spellcheck="false">
+            <button class="btn" type="submit">Entrer</button>
+          </div>
+          <div class="msg" id="doorMsg" role="status"></div>
+        </form>
+        <p class="muted" style="font-size:14px">Votre mot de passe personnel est dans le message d'invitation. Il ouvre votre fiche, et seulement la vôtre. Ne le donnez à personne.</p>
+      </div>
+    </div>`;
+  $('#doorForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const v = $('#codeInput').value;
+    if (norm(v) === 'UNEORCHIDEEPOURMADAME') { $('#doorMsg').textContent = 'Joli. Mais ici, il faut votre mot de passe personnel.'; return; }
+    if (!(await login(v))) $('#doorMsg').textContent = 'La porte reste fermée. Vérifiez le mot de passe de votre invitation.';
+  });
+}
+
+/* ---------- Rendu : documents ---------- */
+const KIND_LABEL = { notebook: 'Page du Carnet Noir', telegram: 'Télégramme', clipping: 'Coupure de presse', steno: 'Carnet de sténo', statement: 'Témoignage', burnt: 'Papier brûlé', object: 'Objet trouvé', memory: 'Souvenir', script: 'À lire' };
+let docRegistry = [];
+function docHTML(d, withShow = true) {
+  const idx = docRegistry.push(d) - 1;
+  let body = md(d.body);
+  if (d.kind === 'clipping') { const parts = d.body.split('\n'); body = '<span>' + esc(parts[0]) + '</span>' + md(parts.slice(1).join('\n')); }
+  return `<article class="doc ${d.kind}">
+    <div class="doc-title">${esc(KIND_LABEL[d.kind] || 'Indice')} · ${esc(d.title)}</div>
+    <div class="doc-body">${body}</div>
+    ${d.note ? `<div class="doc-note">${md(d.note)}</div>` : ''}
+    ${d.sign ? `<div class="doc-sign">— ${esc(d.sign)}</div>` : ''}
+    ${withShow && d.kind !== 'memory' && d.kind !== 'script' ? `<button class="show" data-show="${idx}">Montrer</button>` : ''}
+  </article>`;
+}
+function showDoc(i) {
+  const d = docRegistry[i]; if (!d) return;
+  const o = document.createElement('div'); o.className = 'overlay'; o.setAttribute('role', 'dialog');
+  o.innerHTML = `<div class="inner">${docHTML(d, false)}<button class="btn ghost" id="closeOv">Fermer</button></div>`;
+  document.body.appendChild(o);
+  const close = () => o.remove();
+  $('#closeOv', o).addEventListener('click', close);
+  o.addEventListener('click', e => { if (e.target === o) close(); });
+  $('#closeOv', o).focus();
+}
+
+/* ---------- Rendu : fiche joueur ---------- */
+const PTABS = [['role', 'Rôle'], ['secrets', 'Secrets'], ['soiree', 'Soirée'], ['relations', 'Relations'], ['actes', 'Actes'], ['enquete', 'Enquête'], ['club', 'Le Club']];
+function renderPlayer() {
+  const c = castById[me.id];
+  docRegistry = [];
+  const acts = actsOpen();
+  const seen = store.get('seen_' + me.id, []);
+  const unseen = acts.some(n => !seen.includes(n));
+  $('#app').innerHTML = `
+    <div class="wrap">
+      <header class="top">
+        ${portrait(c.id, c.initials)}
+        <div>
+          <div class="label">Fiche confidentielle</div>
+          <h1>${esc(c.name)}</h1>
+          <div class="role muted">${esc(c.role)}</div>
+          <div class="switch"><button class="btn ghost small" id="logout">Changer de fiche</button></div>
+        </div>
+      </header>
+      <nav class="tabs" role="tablist">
+        ${PTABS.map(([k, l]) => `<button class="tab" role="tab" data-tab="${k}" aria-selected="${tab === k}">${l}${k === 'actes' && unseen ? '<span class="dot" aria-label="nouveau"></span>' : ''}</button>`).join('')}
+      </nav>
+      <main class="panel" id="panel">${playerPanel(c)}</main>
+    </div>`;
+  bindCommon();
+  bindPlayerPanel();
+}
+function playerPanel(c) {
+  const p = me;
+  if (tab === 'role') return `
+    <section class="section">
+      <p class="lead">${esc(c.tagline)}</p>
+      <div class="framed prose"><div class="label">Ce que tout le monde sait de vous</div><p>${esc(c.bio)}</p></div>
+    </section>
+    <section class="section"><h2>Comment jouer ${esc(c.short)}</h2><ul class="list">${p.play.personality.map(x => `<li><span>${md(x)}</span></li>`).join('')}</ul></section>
+    <section class="section"><h2>Vos répliques</h2><ul class="list">${p.play.phrases.map(x => `<li><span><em>${esc(x)}</em></span></li>`).join('')}</ul></section>
+    <section class="section"><h2>Votre allure</h2>
+      <div class="facts">
+        <div class="fact"><span class="label">Costume</span><p>${esc(c.look)}</p></div>
+        <div class="fact"><span class="label">Accessoires à apporter</span><p>${esc(p.play.accessories)}</p></div>
+        <div class="fact"><span class="label">Votre parfum</span><p>${esc(p.play.perfume)}</p></div>
+        <div class="fact"><span class="label">Dans votre portefeuille</span><p>${esc(p.play.money)}</p></div>
+      </div>
+    </section>`;
+  if (tab === 'secrets') {
+    const done = store.get('obj_' + p.id, []);
+    const tot = p.objectives.reduce((s, o, i) => s + (done.includes(i) ? o[1] : 0), 0);
+    return `
+    <section class="section"><h2>Votre histoire</h2><div class="prose">${p.backstory.map(x => `<p>${md(x)}</p>`).join('')}</div></section>
+    <section class="section"><h2>Ce que vous cachez</h2><div class="secret-list">${p.secrets.map(x => `<div><span>${md(x)}</span></div>`).join('')}</div></section>
+    <section class="section"><h2>Vos objectifs</h2>
+      <p class="muted">Cochez-les au fur et à mesure. Les points comptent pour le classement final.</p>
+      ${p.objectives.map((o, i) => `<label class="obj ${done.includes(i) ? 'done' : ''}"><input type="checkbox" id="obj${i}" data-obj="${i}" ${done.includes(i) ? 'checked' : ''}><p>${md(o[0])}</p><span class="pts">${o[1]} pts</span></label>`).join('')}
+      <div class="total"><span class="label">${p.killer ? 'Vos points d\'objectifs' : 'Vos points (+5 si vous démasquez l\'assassin)'}</span><b id="total">${tot}</b></div>
+    </section>`;
+  }
+  if (tab === 'soiree') return `
+    <section class="section"><h2>Votre soirée, minute par minute</h2>
+      <p class="muted">Ce que vous avez fait et vu avant la découverte du corps. Vous savez tout ça dès le début de la partie.</p>
+      <div class="timeline">${p.evening.map(([t, x]) => `<div class="tl-row"><span class="t">${esc(t)}</span><p>${md(x)}</p></div>`).join('')}</div>
+    </section>
+    <section class="section"><div class="callout"><span class="label">Pendant le prologue, en vrai</span><ul class="list">${p.prologue.map(x => `<li><span>${md(x)}</span></li>`).join('')}</ul></div></section>`;
+  if (tab === 'relations') return `
+    <section class="section"><h2>Ce que vous pensez des autres</h2>
+      <div>${PUBLIC.cast.filter(x => x.id !== p.id).map(x => `<div class="rel">${portrait(x.id, x.initials)}<div><h3>${esc(x.name)}</h3><p>${md(p.relations[x.id] || '')}</p></div></div>`).join('')}</div>
+    </section>`;
+  if (tab === 'actes') {
+    const open = actsOpen();
+    return [1, 2, 3].map(n => {
+      const a = p.acts[n];
+      const head = `<div class="act-head"><span class="act-num">${['I', 'II', 'III'][n - 1]}</span><h2 class="act-title">${open.includes(n) ? esc(a.title || '') : 'Acte scellé'}</h2></div>`;
+      if (!open.includes(n)) return `<section class="act">${head}
+        <form class="framed locked" data-act="${n}" autocomplete="off">
+          <p>Cet acte est scellé. Le narrateur annoncera le mot de passe au bon moment.</p>
+          <div class="field"><input aria-label="Mot de passe de l'acte ${n}" placeholder="Mot de passe de l'acte" autocapitalize="characters" spellcheck="false"><button class="btn" type="submit">Ouvrir</button></div>
+          <div class="msg" role="status"></div>
+        </form></section>`;
+      return `<section class="act">${head}
+        <div class="prose">${a.intro.map(x => `<p>${md(x)}</p>`).join('')}</div>
+        ${a.clues.map(d => docHTML(d)).join('')}
+        <div class="callout todo"><span class="label">À faire maintenant</span><ul class="list">${a.todo.map(x => `<li><span>${md(x)}</span></li>`).join('')}</ul></div>
+      </section>`;
+    }).join('<div class="rule-deco" aria-hidden="true"><span></span></div>');
+  }
+  if (tab === 'enquete') return enquetePanel();
+  if (tab === 'club') return clubPanel();
+  return '';
+}
+
+function enquetePanel() {
+  const id = me.id;
+  const notes = store.get('notes_' + id, '');
+  const grid = store.get('grid_' + id, {});
+  const acc = store.get('acc_' + id, null);
+  const others = PUBLIC.cast.filter(x => x.id !== id);
+  const chip = (sid, k, l, cls = '') => `<button class="chip ${cls}" data-sus="${sid}" data-k="${k}" aria-pressed="${!!(grid[sid] && grid[sid][k])}">${l}</button>`;
+  const accBlock = acc ? `
+    <div class="framed accused">
+      <span class="label">Accusation verrouillée</span>
+      <div class="who">${esc(acc.who === 'personne' ? 'Personne' : castById[acc.who].name)}</div>
+      <p><em>${esc(acc.how)}</em></p>
+      ${acc.why ? `<p class="muted">${md(acc.why)}</p>` : ''}
+      <div><button class="btn ghost small" id="unlockAcc">Déverrouiller</button></div>
+    </div>` : `
+    <form class="form framed" id="accForm">
+      <label><span class="label">Qui a tué Desmond Crane ?</span>
+        <select id="accWho" required><option value="">Choisir…</option>${PUBLIC.cast.map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></label>
+      <label><span class="label">Comment ?</span>
+        <select id="accHow"><option>Poison</option><option>Arme blanche</option><option>Étranglement</option><option>Arme à feu</option><option>Coup sur la tête</option><option>Autre</option></select></label>
+      <label><span class="label">Pourquoi ?</span><textarea id="accWhy" rows="3" placeholder="Le mobile, en une ou deux phrases"></textarea></label>
+      <button class="btn" type="submit">Verrouiller mon accusation</button>
+    </form>`;
+  return `
+    <section class="section"><h2>Carnet d'enquête</h2>
+      <p class="muted">Vos notes restent sur ce téléphone.</p>
+      <textarea class="notes" id="notes" aria-label="Notes d'enquête" placeholder="Qui ment ? Qui était où à 23 h 38 ?">${esc(notes)}</textarea>
+    </section>
+    <section class="section"><h2>Les suspects</h2>
+      <p class="muted">Touchez pour marquer : un mobile, un moyen, une occasion. Ou innocenter.</p>
+      <div class="grid-sus">${others.map(x => `
+        <div class="sus ${grid[x.id] && grid[x.id].clear ? 'cleared' : ''}">${portrait(x.id, x.initials)}<div style="min-width:0">
+          <div class="name">${esc(x.name)}</div>
+          <div class="chips">${chip(x.id, 'mob', 'Mobile')}${chip(x.id, 'moy', 'Moyen')}${chip(x.id, 'occ', 'Occasion')}${chip(x.id, 'clear', 'Innocent', 'clear')}</div>
+        </div></div>`).join('')}</div>
+    </section>
+    <section class="section"><h2>Mon accusation finale</h2>
+      <p class="muted">À verrouiller au moment des accusations, quand le narrateur le demande.</p>
+      ${accBlock}
+    </section>`;
+}
+
+function planSVG() {
+  const L = (x, y, t, s = 12, a = 'middle', c = 'var(--ivory-dim)') => `<text x="${x}" y="${y}" font-family="Josefin Sans, sans-serif" font-size="${s}" letter-spacing="1" fill="${c}" text-anchor="${a}">${t}</text>`;
+  const R = (x, y, w, h, f = 'var(--night-3)') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}" stroke="var(--brass-soft)" stroke-width="1.5"/>`;
+  return `<svg viewBox="0 0 640 480" role="img" aria-label="Plan du Black Orchid">
+    <rect x="0" y="0" width="640" height="480" fill="var(--night-2)"/>
+    ${R(20, 20, 300, 64)}${L(170, 50, 'LOGE DE JO', 12)}${L(170, 68, '(cendrier)', 10)}
+    ${R(20, 84, 300, 36, 'var(--night)')}${L(190, 107, 'COULOIR DES LOGES', 11)}
+    <circle cx="62" cy="102" r="9" fill="var(--alert)"/>${L(62, 106, 'D', 11, 'middle', 'var(--night)')}
+    ${L(30, 140, '', 10)}
+    ${R(320, 20, 300, 100)}${L(470, 74, 'BUREAU DE LUCKY', 12)}
+    ${R(20, 120, 450, 200, 'var(--night)')}${L(260, 255, 'GRANDE SALLE', 14, 'middle', 'var(--brass)')}${L(260, 273, 'tables · piste de danse · gâteau', 10)}
+    ${R(34, 136, 46, 168)}<text x="57" y="222" font-family="Josefin Sans, sans-serif" font-size="12" letter-spacing="2" fill="var(--ivory-dim)" text-anchor="middle" transform="rotate(-90 57 222)">BAR (SAM)</text>
+    ${R(150, 120, 200, 44)}${L(230, 147, 'SCÈNE', 12)}
+    <circle cx="318" cy="142" r="15" fill="var(--night)" stroke="var(--brass)" stroke-width="1.5"/>${L(318, 146, 'P', 11, 'middle', 'var(--brass)')}
+    ${R(470, 120, 150, 130)}${L(545, 180, 'SALON DORÉ', 13, 'middle', 'var(--brass)')}${L(545, 198, 'Desmond Crane', 10)}
+    <rect x="464" y="186" width="12" height="34" fill="var(--orchid)"/>
+    <circle cx="430" cy="190" r="14" fill="var(--night-3)" stroke="var(--brass-soft)" stroke-width="1.5"/>${L(430, 194, 'S', 11, 'middle', 'var(--brass)')}
+    <circle cx="448" cy="240" r="8" fill="var(--ok)" opacity=".8"/>
+    ${R(470, 250, 150, 70)}${L(545, 290, 'TOILETTES DES DAMES', 11)}
+    ${[[150, 205], [210, 215], [370, 230], [150, 290], [370, 290], [300, 300]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="10" fill="none" stroke="var(--rule)" stroke-width="1.5"/>`).join('')}
+    ${R(20, 320, 180, 90)}${L(110, 356, 'FLEURISTE ROSSI', 12)}${L(110, 374, 'chambre froide → porte secrète', 10)}
+    ${R(200, 320, 110, 90)}${L(255, 362, 'VESTIAIRE', 12)}${L(255, 380, '(Dolly)', 10)}
+    ${R(310, 320, 310, 90, 'var(--night-2)')}${L(465, 368, 'RÉSERVE', 12)}
+    <rect x="12" y="34" width="10" height="34" fill="var(--alert)"/>${L(30, 26, '', 10)}
+    <rect x="96" y="404" width="40" height="10" fill="var(--brass)"/>
+    <rect x="0" y="420" width="640" height="60" fill="var(--night-3)"/>${L(320, 456, '52e RUE OUEST', 14, 'middle', 'var(--brass)')}
+    <g font-family="Josefin Sans, sans-serif" font-size="10" fill="var(--ivory-dim)">
+      <text x="34" y="18">↖ Porte de service (verrouillée)</text>
+    </g>
+    <g transform="translate(330 440)" font-family="Josefin Sans, sans-serif" font-size="10" fill="var(--ivory-dim)"></g>
+  </svg>
+  <div style="display:flex;flex-wrap:wrap;gap:6px 16px;padding:10px 12px;font-family:var(--f-label);font-size:12px;color:var(--ivory-dim)">
+    <span><b style="color:var(--alert)">D</b> Disjoncteur</span><span><b style="color:var(--brass)">P</b> Piano (Earl)</span><span><b style="color:var(--brass)">S</b> Table de séance (Irina)</span><span><b style="color:var(--ok)">●</b> Grand palmier</span><span><b style="color:var(--orchid)">▮</b> Porte du Salon Doré</span><span><b style="color:var(--brass)">▬</b> Entrée</span>
+  </div>`;
+}
+
+function clubPanel() {
+  const P = PUBLIC;
+  return `
+    <section class="section"><h2>La victime</h2>
+      <div class="victim">${portrait('crane', 'DC')}<div class="prose">
+        <div><div class="label">${esc(P.victim.age)}</div><h3 style="font-family:var(--f-display);font-size:26px">${esc(P.victim.name)}</h3><p class="muted" style="font-size:14px">${esc(P.victim.title)}</p></div>
+        ${P.victim.bio.map(x => `<p>${esc(x)}</p>`).join('')}
+      </div></div>
+    </section>
+    <section class="section"><h2>${esc(P.setting.title)}</h2>
+      <p class="muted">${esc(P.setting.address)} · Mot de passe : ${esc(P.setting.password)}</p>
+      <div class="prose">${P.setting.text.map(x => `<p>${esc(x)}</p>`).join('')}</div>
+      <div class="plan">${planSVG()}</div>
+    </section>
+    <section class="section"><h2>Ce que tout le monde sait</h2>
+      <div class="timeline">${P.timeline.map(([t, x]) => `<div class="tl-row"><span class="t">${esc(t)}</span><p>${esc(x)}</p></div>`).join('')}</div>
+    </section>
+    <section class="section"><h2>Les invités</h2>
+      <div class="cast">${P.cast.map(x => `<div class="cast-card">${portrait(x.id, x.initials)}<h3>${esc(x.name)}</h3><p>${esc(x.role)}</p></div>`).join('')}</div>
+      <details class="more"><summary>Ce que l'on dit de chacun</summary>
+        <div>${P.cast.map(x => `<div class="rel">${portrait(x.id, x.initials)}<div><h3>${esc(x.name)}</h3><p>${esc(x.bio)}</p></div></div>`).join('')}</div>
+      </details>
+    </section>
+    <section class="section"><h2>Le personnel</h2>
+      <div class="facts">${P.npcs.map(n => `<div class="fact"><span class="label">${esc(n.role)}</span><p><strong>${esc(n.name)}</strong> : ${esc(n.text)}</p></div>`).join('')}</div>
+    </section>
+    <section class="section"><h2>Les règles de la maison</h2>
+      <div class="secret-list">${P.rules.map(([t, x]) => `<div><span><strong>${esc(t)}.</strong> ${esc(x)}</span></div>`).join('')}</div>
+    </section>
+    <section class="section"><h2>Parler comme en 1926</h2>
+      <div class="slang">${P.slang.map(([t, x]) => `<div><b>${esc(t)}</b>${esc(x)}</div>`).join('')}</div>
+    </section>`;
+}
+
+function bindCommon() {
+  $$('.tab').forEach(b => b.addEventListener('click', () => {
+    tab = b.dataset.tab;
+    if (me) store.set('tab_' + me.id, tab); else store.set('ntab', tab);
+    render(); window.scrollTo({ top: 0 });
+  }));
+  const lo = $('#logout'); if (lo) lo.addEventListener('click', logout);
+  $$('[data-show]').forEach(b => b.addEventListener('click', () => showDoc(+b.dataset.show)));
+  wirePortraits(document);
+}
+function bindPlayerPanel() {
+  const id = me.id;
+  if (tab === 'actes') {
+    const seen = store.get('seen_' + id, []); const open = actsOpen();
+    const merged = Array.from(new Set(seen.concat(open))); store.set('seen_' + id, merged);
+    const dot = $('.tab[data-tab="actes"] .dot'); if (dot) dot.remove();
+  }
+  $$('[data-obj]').forEach(cb => cb.addEventListener('change', () => {
+    const done = new Set(store.get('obj_' + id, [])); const i = +cb.dataset.obj;
+    cb.checked ? done.add(i) : done.delete(i); store.set('obj_' + id, Array.from(done));
+    cb.closest('.obj').classList.toggle('done', cb.checked);
+    $('#total').textContent = me.objectives.reduce((s, o, j) => s + (done.has(j) ? o[1] : 0), 0);
+  }));
+  $$('form.locked').forEach(f => f.addEventListener('submit', e => {
+    e.preventDefault();
+    const n = +f.dataset.act; const v = $('input', f).value;
+    if (openAct(n, v)) { render(); toast('Acte ' + ['I', 'II', 'III'][n - 1] + ' ouvert'); }
+    else $('.msg', f).textContent = "Ce n'est pas le bon mot de passe. Attendez que le narrateur l'annonce.";
+  }));
+  const notes = $('#notes');
+  if (notes) { let t; notes.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => store.set('notes_' + id, notes.value), 300); }); }
+  $$('.chip[data-sus]').forEach(b => b.addEventListener('click', () => {
+    const g = store.get('grid_' + id, {}); const s = b.dataset.sus, k = b.dataset.k;
+    g[s] = g[s] || {}; g[s][k] = !g[s][k]; store.set('grid_' + id, g);
+    b.setAttribute('aria-pressed', String(!!g[s][k]));
+    if (k === 'clear') b.closest('.sus').classList.toggle('cleared', !!g[s][k]);
+  }));
+  const af = $('#accForm');
+  if (af) af.addEventListener('submit', e => {
+    e.preventDefault();
+    const who = $('#accWho').value; if (!who) { toast('Choisissez un suspect'); return; }
+    store.set('acc_' + id, { who, how: $('#accHow').value, why: $('#accWhy').value.trim() }); render();
+  });
+  const ua = $('#unlockAcc');
+  if (ua) ua.addEventListener('click', () => {
+    if (ua.dataset.armed) { store.del('acc_' + id); render(); return; }
+    ua.dataset.armed = '1'; ua.textContent = 'Toucher encore pour confirmer';
+    setTimeout(() => { if (ua.isConnected) { delete ua.dataset.armed; ua.textContent = 'Déverrouiller'; } }, 3000);
+  });
+}
+
+/* ---------- Rendu : narrateur ---------- */
+const NTABS = [['deroule', 'Déroulé'], ['distribution', 'Distribution'], ['preparation', 'Préparation'], ['revelation', 'Révélation'], ['club', 'Le Club']];
+const timers = {};
+function renderNarrator() {
+  docRegistry = [];
+  $('#app').innerHTML = `
+    <div class="wrap">
+      <header class="top" style="grid-template-columns:1fr">
+        <div>
+          <div class="fan" aria-hidden="true" style="margin:0 0 10px"></div>
+          <div class="label">Le carnet du narrateur</div>
+          <h1>Meurtre au Black Orchid</h1>
+          <div class="role muted">Tout ce qu'il faut pour mener la soirée, étape par étape. Sans spoiler : la solution est scellée dans l'onglet Révélation.</div>
+          <div class="switch"><button class="btn ghost small" id="logout">Changer de fiche</button></div>
+        </div>
+      </header>
+      <nav class="tabs" role="tablist">${NTABS.map(([k, l]) => `<button class="tab" role="tab" data-tab="${k}" aria-selected="${tab === k}">${l}</button>`).join('')}</nav>
+      <main class="panel" id="panel">${narratorPanel()}</main>
+    </div>`;
+  bindCommon();
+  bindNarrator();
+}
+function fmt(s) { const neg = s < 0; s = Math.abs(Math.round(s)); return (neg ? '−' : '') + String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+function narratorPanel() {
+  const N = narr;
+  if (tab === 'deroule') {
+    const reached = store.get('nstep', 0);
+    return N.steps.map((s, i) => {
+      if (i > reached) return `<section class="step future"><div class="step-head"><h3>Étape ${i + 1}</h3><span class="label">${s.minutes} min</span></div><p class="muted"><em>Pas encore. Ne lisez pas à l'avance.</em></p></section>`;
+      return `<section class="step framed">
+        <div class="step-head"><h3>${esc(s.title)}</h3><span class="label">${s.minutes} min</span></div>
+        <div class="stage"><span class="label">Mise en scène</span><ul class="list">${s.stage.map(x => `<li><span>${md(x)}</span></li>`).join('')}</ul></div>
+        <div class="read"><span class="label">À lire à voix haute</span>${s.read.map(x => `<p>${md(x)}</p>`).join('')}</div>
+        ${s.questions ? `<div class="stage"><span class="label">Les questions de cet acte</span><ul class="list">${s.questions.map(x => `<li><span>${esc(x)}</span></li>`).join('')}</ul></div>` : ''}
+        ${s.password ? `<div class="pw"><span class="label">Mot de passe à annoncer</span><b>${esc(s.password)}</b></div>` : ''}
+        <div class="timer" data-timer="${s.id}" data-min="${s.minutes}"><span class="clock">${fmt((timers[s.id] && timers[s.id].left != null ? timers[s.id].left : s.minutes * 60))}</span>
+          <button class="btn small" data-tact="go">Lancer</button><button class="btn ghost small" data-tact="reset">Remettre</button></div>
+        ${i === reached && i < N.steps.length - 1 ? `<button class="btn ghost" id="nextStep">Passer à l'étape suivante</button>` : ''}
+        ${i === reached && i === N.steps.length - 1 ? `<p class="muted">Ensuite : onglet <strong>Révélation</strong>.</p>` : ''}
+      </section>`;
+    }).join('') + (store.get('nstep', 0) > 0 ? `<button class="btn ghost small" id="resetSteps" style="justify-self:start">Recommencer le déroulé</button>` : '');
+  }
+  if (tab === 'distribution') {
+    const link = store.get('link', '');
+    return `
+      <section class="section"><h2>Envoyer les fiches</h2>
+        <div class="prose"><p>Chaque invité reçoit le lien de cette page et son mot de passe. Le mot de passe ouvre sa fiche, et seulement la sienne.</p>
+        <p class="muted">Collez ici le lien de partage de la page : les boutons « Copier le message » prépareront un message complet, lien personnel compris.</p></div>
+        <input class="link" id="linkInput" placeholder="https://claude.ai/…" value="${esc(link)}" aria-label="Lien de partage de la page">
+      </section>
+      <section class="section"><h2>Distribution suggérée</h2>
+        <p class="muted">${esc(N.castingNote)}</p>
+        <div>${N.casting.map(([id, who]) => { const c = castById[id]; const code = N.codes[id]; return `
+          <div class="dist">${portrait(id, c.initials)}<div style="min-width:0">
+            <div class="label">${esc(who)}</div>
+            <div style="font-family:var(--f-display);font-size:20px">${esc(c.name)}</div>
+            <div class="muted" style="font-size:14px">${esc(c.role)}</div>
+            <div class="row"><span class="code">${esc(code)}</span><button class="btn small" data-copymsg="${id}">Copier le message</button></div>
+          </div></div>`; }).join('')}
+        </div>
+        <div class="dist"><div class="portrait"><span class="mono">✦</span></div><div><div class="label">Le narrateur (toi, en plus de ton rôle)</div><div class="row"><span class="code">NARRATEUR</span></div></div></div>
+      </section>`;
+  }
+  if (tab === 'preparation') {
+    const chk = store.get('prep', []);
+    return `
+      <section class="section"><h2>Liste de préparation</h2>
+        ${N.prep.map(([w, t], i) => `<label class="check"><input type="checkbox" data-prep="${i}" ${chk.includes(i) ? 'checked' : ''}><span><span class="when">${esc(w)}</span>${esc(t)}</span></label>`).join('')}
+      </section>
+      <section class="section"><h2>Playlist 1926</h2><ul class="list">${N.playlist.map(x => `<li><span>${esc(x)}</span></li>`).join('')}</ul></section>
+      <section class="section"><h2>Le bar de Sam</h2><div class="facts">${N.cocktails.map(([t, x]) => `<div class="fact"><span class="label">${esc(t)}</span><p>${esc(x)}</p></div>`).join('')}</div></section>
+      <section class="section"><h2>Les récompenses</h2><div class="facts">${N.awards.map(([t, x]) => `<div class="fact"><span class="label">${esc(t)}</span><p>${esc(x)}</p></div>`).join('')}</div></section>`;
+  }
+  if (tab === 'revelation') return revelationPanel();
+  if (tab === 'club') return clubPanel();
+  return '';
+}
+let SOL = null;
+function revelationPanel() {
+  const stage = store.get('rev', 0);
+  if (stage === 0) return `<section class="section framed" style="text-align:center;display:grid;gap:16px;justify-items:center">
+      <div class="fan" aria-hidden="true"></div>
+      <h2>L'enveloppe scellée</h2>
+      <p class="prose" style="justify-self:center">À n'ouvrir qu'après les accusations, quand chacun a verrouillé la sienne dans l'onglet Enquête. Toi aussi.</p>
+      <button class="btn" id="revArm">Tout le monde a accusé</button>
+      <div id="revConfirm"></div>
+    </section>`;
+  if (!SOL) { unseal(SEALED.solution, narr.solutionKey).then(x => { SOL = x; render(); }); return '<p class="muted">Ouverture de l\'enveloppe…</p>'; }
+  const n = stage; // nombre de cartes révélées
+  const cards = SOL.cards.slice(0, n).map(c => `
+    <section class="reveal-card framed ${c.big ? 'big' : ''}">
+      <div class="q">${esc(c.q)}</div>
+      <div class="a">${esc(c.a)}</div>
+      <div class="prose">${c.body.map(x => `<p>${md(x)}</p>`).join('')}</div>
+      ${c.proofs ? c.proofs.map(([t, x]) => `<div class="proof"><b>${esc(t)}</b><p>${md(x)}</p></div>`).join('') : ''}
+      ${c.big ? `<div class="callout"><span class="label">Maintenant</span><p>${esc(SOL.confessionHint)}</p></div>` : ''}
+    </section>`).join('');
+  const more = n < SOL.cards.length
+    ? `<button class="btn" id="revNext">Révéler : ${esc(SOL.cards[n].q)}</button>`
+    : (n === SOL.cards.length ? `<button class="btn" id="revNext">Lire les épilogues</button>` : '');
+  const after = n > SOL.cards.length ? `
+    <section class="section"><h2>Ce qu'ils sont devenus</h2>
+      <div>${SOL.epilogues.map(([id, t]) => { const c = castById[id]; return `<div class="ep">${portrait(id, c.initials)}<div><h3>${esc(c.name)}</h3><p>${md(t)}</p></div></div>`; }).join('')}</div>
+    </section>
+    <section class="section"><h2>Le décompte des points</h2><div class="facts">${SOL.scoring.map(([t, x]) => `<div class="fact"><span class="label">${esc(t)}</span><p>${esc(x)}</p></div>`).join('')}</div></section>
+    <section class="section"><h2>Les récompenses</h2><div class="facts">${narr.awards.map(([t, x]) => `<div class="fact"><span class="label">${esc(t)}</span><p>${esc(x)}</p></div>`).join('')}</div></section>
+    <button class="btn ghost small" id="revReset" style="justify-self:start">Refermer l'enveloppe</button>` : '';
+  return cards + more + after;
+}
+function bindNarrator() {
+  const ns = $('#nextStep'); if (ns) ns.addEventListener('click', () => { store.set('nstep', store.get('nstep', 0) + 1); render(); setTimeout(() => { const s = $$('.step.framed'); if (s.length) s[s.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); });
+  const rs = $('#resetSteps'); if (rs) rs.addEventListener('click', () => {
+    if (rs.dataset.armed) { store.set('nstep', 0); render(); return; }
+    rs.dataset.armed = '1'; rs.textContent = 'Toucher encore pour confirmer';
+  });
+  $$('.timer').forEach(t => {
+    const id = t.dataset.timer, mins = +t.dataset.min, clock = $('.clock', t);
+    const st = timers[id] = timers[id] || { left: mins * 60, end: null, h: null };
+    const paint = () => { const left = st.end ? (st.end - Date.now()) / 1000 : st.left; clock.textContent = fmt(left); t.classList.toggle('over', left < 0); };
+    const run = () => { clearInterval(st.h); st.h = setInterval(() => { if (!clock.isConnected) { clearInterval(st.h); return; } paint(); }, 500); };
+    const go = $('[data-tact="go"]', t);
+    if (st.end) { go.textContent = 'Pause'; run(); }
+    paint();
+    go.addEventListener('click', () => {
+      if (st.end) { st.left = (st.end - Date.now()) / 1000; st.end = null; clearInterval(st.h); go.textContent = 'Lancer'; }
+      else { st.end = Date.now() + st.left * 1000; go.textContent = 'Pause'; run(); }
+      paint();
+    });
+    $('[data-tact="reset"]', t).addEventListener('click', () => { clearInterval(st.h); st.end = null; st.left = mins * 60; go.textContent = 'Lancer'; paint(); });
+  });
+  const li = $('#linkInput'); if (li) li.addEventListener('input', () => store.set('link', li.value.trim()));
+  $$('[data-copymsg]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.copymsg, c = castById[id], code = narr.codes[id];
+    const link = (store.get('link', '') || '').split('#')[0];
+    const msg = `🥂 Meurtre au Black Orchid — New York, 1926\n\nTon personnage : ${c.name}, ${c.role}.\n\n` +
+      (link ? `Ta fiche secrète : ${link}#${code.toLowerCase()}\n` : `Ta fiche secrète : [lien]\n`) +
+      `Ton mot de passe : ${code}\n\nLis « Rôle », « Secrets », « Soirée » et « Relations » avant la soirée. Ne montre ta fiche à personne. Costume exigé !`;
+    copy(msg);
+  }));
+  $$('[data-prep]').forEach(cb => cb.addEventListener('change', () => {
+    const s = new Set(store.get('prep', [])); const i = +cb.dataset.prep; cb.checked ? s.add(i) : s.delete(i); store.set('prep', Array.from(s));
+  }));
+  const arm = $('#revArm'); if (arm) arm.addEventListener('click', () => {
+    $('#revConfirm').innerHTML = `<p class="muted" style="margin-bottom:10px">Dernière chance : une fois ouverte, l'enveloppe révèle tout.</p><button class="btn danger" id="revOpen">Ouvrir l'enveloppe</button>`;
+    $('#revOpen').addEventListener('click', () => { store.set('rev', 1); render(); });
+  });
+  const nx = $('#revNext'); if (nx) nx.addEventListener('click', () => { store.set('rev', store.get('rev', 0) + 1); render(); const s = $$('.reveal-card'); if (s.length) s[s.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  const rr = $('#revReset'); if (rr) rr.addEventListener('click', () => { store.set('rev', 0); render(); });
+}
+
+/* ---------- Démarrage ---------- */
+function render() { if (narr) renderNarrator(); else if (me) renderPlayer(); else renderDoor(); }
+(async function start() {
+  const h = (location.hash || '').replace(/^#/, '');
+  if (h && await login(h, true)) return;
+  const saved = store.get('code', null);
+  if (saved && await login(saved, true)) return;
+  render();
+})();
+window.addEventListener('hashchange', () => { const h = (location.hash || '').replace(/^#/, ''); if (h) login(h, true); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { const o = $('.overlay'); if (o) o.remove(); } });
+</script>
+</body></html>
